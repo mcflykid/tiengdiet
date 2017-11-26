@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<link rel="icon"  type="image/png" href="http://icons.iconarchive.com/icons/artdesigner/emoticons/128/crazy-icon.png" />
+
+	
+	
+    <title>Tiếng Diệt</title>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	
+<script>
+    'use strict';
+    var _typeof = 'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator ? function(a) {
+        return typeof a
+    }
+    : function(a) {
+        return a && 'function' == typeof Symbol && a.constructor === Symbol && a !== Symbol.prototype ? 'symbol' : typeof a
+    }
+      , maps = [['kh', 'x'], ['c(?!h)', 'k'], ['q', 'k'], ['tr', 'c'], ['ch', 'c'], ['d', 'z'], ['gi', 'z'], ['r', 'z'], ['\u0111', 'd'], ['ph', 'f'], ['ngh?', 'q'], ['gh', 'g'], ['th', 'w'], ['nh', 'n\'']]
+      , capitalize = function(a) {
+        return '' + a.charAt(0).toUpperCase() + a.slice(1)
+    }
+      , convert = function(a, b) {
+        return a.replace(new RegExp(b[0],'g'), b[1]).replace(new RegExp(capitalize(b[0]),'g'), capitalize(b[1]))
+    };
+    var tiegViet = function(a) {
+        if ('string' != typeof a)
+            throw new TypeError('Expected a string, got ' + ('undefined' == typeof a ? 'undefined' : _typeof(a)));
+        return maps.forEach(function(b) {
+            a = convert(a, b)
+        }),
+        a
+    }
+    ;
+
+	var flash= function(type,content){
+		if($('#wrapperShowHide').length==0){
+			var wrapper = '<div id="wrapperShowHide" style="width: 300px;top:5%; left:69%;position: fixed;z-index:10000; font-size:13px"></div>';
+			$('body').before(wrapper);
+		}
+		var count=0;
+		while($('#showHideMessage'+count).length>0){
+			count++;
+		}
+		var messageType="";
+		var header="";
+		switch(type) {
+			case 1:
+				messageType="alert-success";
+				header="";
+				break;
+			case 2:
+				messageType="alert-info";
+				header="";
+				break;
+			case 3:
+				messageType="alert-warning";
+				header="Cảnh báo! ";
+				break;
+			default:
+				messageType="alert-danger";
+				header="Lỗi! ";
+		}
+		var content = '<div class="alert '+messageType+'" id="showHideMessage'+count+'" style="width: 400px;"><button type="button" class="close" data-dismiss="alert">x</button><strong>'+header+'</strong>'+content+'</div>';
+		$("#wrapperShowHide").append(content);
+		
+		$("#showHideMessage"+count).fadeTo(500, 250).fadeOut(500, function(){
+			$(this).alert('close');
+			if($('#wrapperShowHide > div').length==0){
+				$('#wrapperShowHide').remove();
+			}
+		});   
+	};
+	
+	var setClipboard= function(text){
+		var id = "mycustom-clipboard-textarea-hidden-id";
+		var existsTextarea = document.getElementById(id);
+
+		if(!existsTextarea){
+			console.log("Creating textarea");
+			var textarea = document.createElement("textarea");
+			textarea.id = id;
+			// Place in top-left corner of screen regardless of scroll position.
+			textarea.style.position = 'fixed';
+			textarea.style.top = 0;
+			textarea.style.left = 0;
+
+			// Ensure it has a small width and height. Setting to 1px / 1em
+			// doesn't work as this gives a negative w/h on some browsers.
+			textarea.style.width = '1px';
+			textarea.style.height = '1px';
+
+			// We don't need padding, reducing the size if it does flash render.
+			textarea.style.padding = 0;
+
+			// Clean up any borders.
+			textarea.style.border = 'none';
+			textarea.style.outline = 'none';
+			textarea.style.boxShadow = 'none';
+
+			// Avoid flash of white box if rendered for any reason.
+			textarea.style.background = 'transparent';
+			document.querySelector("body").appendChild(textarea);
+			console.log("The textarea now exists :)");
+			existsTextarea = document.getElementById(id);
+		}else{
+			console.log("The textarea already exists :3")
+		}
+
+		existsTextarea.value = text;
+		existsTextarea.select();
+
+		try {
+			var status = document.execCommand('copy');
+			if(!status){
+				console.error("Cannot copy text");
+			}else{
+				console.log("The text is now on the clipboard");
+			}
+		} catch (err) {
+			console.log('Unable to copy.');
+		}
+	};
+</script>
+
+<style>
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+.cc {
+        user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+} 
+.notification{
+    position: fixed;
+    top: 3em;
+    left: 20%;
+    right: 20%;
+    z-index: 1051; /* must be equal to or larger than .modal */
+    opacity:0;
+}
+</style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Tiếng Diệt</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="javascript:">Tiếng <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:">Diệt</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="javascript:">Là</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="javascript:" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đây</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="javascript:">Chứ</a>
+              <a class="dropdown-item" href="javascript:">Đâu</a>
+              <a class="dropdown-item" href="javascript:">Nữa</a>
+              <a class="dropdown-item" href="http://fb.com/mcflykid">@mcflykid</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="http://github.com/mcflykid/tiengdiet">
+          <input class="form-control mr-sm-2" type="text" placeholder="Không có gì đâu" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Khỏi search</button>
+        </form>
+      </div>
+    </nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<form role="form">
+				<div class="form-group">
+					 
+					<label for="exampleInputEmail1" class="cc">
+						Tiếng Việt
+					</label>
+					<textarea class="form-control" id="exampleInputEmail1" rows="5"></textarea>
+				</div>
+				<div class="form-group">
+					 
+					<label for="exampleInputPassword1" class="cc">
+						Tiếng Diệt
+					</label>
+					<textarea class="form-control" id="exampleInputPassword1" rows="5"></textarea>
+				</div>
+
+				<div class="checkbox">
+					 
+					<label class="cc">
+						<input type="checkbox" id="auto" checked /> Tự động copy
+					</label>
+				</div> 
+				<button type="button" class="btn btn-success" onclick="copy();">
+					Copy
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+var $from = $('#exampleInputEmail1');
+var $to = $('#exampleInputPassword1');
+var $auto = $('#auto');
+$from.on('input change', function(){
+	var str = tiegViet($from.val());
+	$to.val(str);
+	if ($auto.prop('checked')){
+		if (str)
+		setClipboard(str);
+		else
+		setClipboard(' ');
+	}
+	$from.focus();
+	
+});
+var copy = function(){
+	setClipboard($to.val());
+	flash(1, "Đã copy");
+};
+$from.click(function(){
+	$from.select();
+});
+$to.click(function(){
+	$to.select();
+});
+
+
+$from.val('Hôm nay là thứ mấy\r\nChắc chắn là thứ hight');
+$to.val($from.val());
+$from.focus();
+
+
+</script>
+</body>
+</html>
+
