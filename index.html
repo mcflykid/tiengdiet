@@ -251,7 +251,8 @@ var copy = function(){
 	flash(1, "Đã copy");
 };
 $from.click(function(){
-	//$from.select();
+    $from.select();
+	$from.off('click');
 });
 $to.click(function(){
 	$to.select();
